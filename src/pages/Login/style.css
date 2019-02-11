@@ -1,0 +1,16 @@
+.login-wrapper {
+  width: 600px;
+  margin: 200px auto;
+}
+.login-wrapper form {
+  border: 1px solid #999;
+  padding: 25px;
+}
+.login-wrapper form label {
+    width: 100px;
+    margin: 0 10px 0px 0;
+    float: left;
+}
+.alert {
+  color: red;
+}

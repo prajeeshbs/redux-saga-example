@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
-//import { authorize } from '../../reducers/authReducer';
-
-import  * as actions  from '../../actions';
-//import { tokenSelector, errorSelector } from './selectors';
+import  * as actions  from '../../redux/actions';
+import './style.css'
 
 class Login extends PureComponent {
   constructor(props) {
@@ -28,22 +24,16 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { error, token } = this.props;
-    debugger
     return (
       <div className="login-wrapper">
         <h3>Login</h3>
-        {
-          this.props.token ?
-            <div>
-              present
-              {this.props.token}
-            </div>
-
-          :
-            <span>No token</span>
-        }
         <form>
+          {
+            this.props.invalidLogin &&
+            <div className="alert">
+              Invalid Credentials
+            </div>
+          }
           <div>
             <label>Username</label>
             <input type="text" name="username" onChange={(e) => this.handleChange(e)} />
@@ -60,14 +50,7 @@ class Login extends PureComponent {
 }
 
 export default connect(state => ({
-  ...state.token,
+  ...state.auth,
 }),{
   ...actions,
 })(Login);
-
-// const mapStateToProps = (state) => ({
-//   token: state.auth.token,
-//   error: state.auth.error
-// });
-
-//export default connect(mapStateToProps)(Login);

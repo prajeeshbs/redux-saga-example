@@ -1,23 +1,29 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
 
-const Main = ({ token }) => {
-  if (!token) {
-    return <Redirect to="/login" />;
+import  * as actions  from '../../redux/actions';
+import Logout from '../Logout'
+
+class Dashboard extends React.Component {
+
+  componentDidMount() {
+    this.props.getBooks();
   }
 
-  return <div> You are logged in.</div>;
-};
+  render() {
+    return (
+      <div className="dashboard-wrapper">
+        <p>
+          This is the Dashboard page. This can be accessed only if the user is logged in.
+        </p>
+        <p>Click here to <Logout /></p>
+      </div>
+    );
+  }
+}
 
-const mapStateToProps = (state) => ({
-  token: state.auth.token
-});
-
-// export default connect(state => ({
-//   ...state.books,
-// }),{
-//   ...actions,
-// })(App);
-
-export default connect(mapStateToProps)(Main);
+export default connect(state => ({
+  ...state.books,
+}),{
+  ...actions,
+})(Dashboard);

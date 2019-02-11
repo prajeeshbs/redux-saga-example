@@ -1,8 +1,9 @@
+import * as types from '../constants/actionTypes'
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
-    case 'GET_BOOKS':
+    case types.BOOKS_FETCH_REQUEST:
         return { ...state, loading: true };
-    case 'BOOKS_RECEIVED':
+    case types.BOOKS_FETCH_SUCCESS:
       return {
         ...state,
         books: action.books,

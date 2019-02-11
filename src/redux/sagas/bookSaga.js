@@ -1,13 +1,9 @@
-import { put, takeLatest, all, call } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import axios from "axios";
-
-
+import * as types from '../constants/actionTypes';
 
 function getAllBooks() {
-  return axios({
-    method: "get",
-    url: "http://10.2.0.110:3002/api/v1/books"
-  });
+  return axios.get(types.API_URL_BOOKS);
 }
 
 function* fetchBooks() {
@@ -18,14 +14,14 @@ function* fetchBooks() {
     const books = response.data;
 
     // dispatch a success action to the store
-    yield put({ type: "BOOKS_RECEIVED", books});
+    yield put({ type: types.BOOKS_FETCH_SUCCESS, books});
 
   } catch (error) {
     // dispatch a failure action to the store with the error
-    yield put({ type: "API_CALL_FAILURE", error });
+    yield put({ type: types.BOOKS_FETCH_FAILURE, error });
   }
 }
 
 export function* watchBookFetchRequest() {
-  yield takeLatest('GET_BOOKS', fetchBooks)
+  yield takeLatest(types.BOOKS_FETCH_REQUEST, fetchBooks);
 }
