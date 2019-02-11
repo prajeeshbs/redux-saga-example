@@ -12,15 +12,20 @@ class Login extends PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     let name = e.target.name,
       value = e.target.value;
     this.setState({[name]: value});
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const { username, password } = this.state;
     this.props.handleAuth(username, password);
+  }
+
+  getButtonText = () => {
+    let btnText = this.props.loading ? "Logging in..." : "Submit";
+    return btnText;
   }
 
   render() {
@@ -42,7 +47,7 @@ class Login extends PureComponent {
             <label>Password</label>
             <input type="password" name="password" onChange={(e) => this.handleChange(e)}/>
           </div>
-          <input type="button" className="btn" value="Submit" onClick={this.handleSubmit} />
+          <input type="button" className="btn" value={this.getButtonText()} onClick={this.handleSubmit} />
         </form>
       </div>
     );
