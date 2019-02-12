@@ -1,4 +1,4 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 import axios from "axios";
 import * as types from '../constants/actionTypes';
 
@@ -24,4 +24,10 @@ function* fetchBooks() {
 
 export function* watchBookFetchRequest() {
   yield takeLatest(types.BOOKS_FETCH_REQUEST, fetchBooks);
+}
+
+export default function* authSaga() {
+  yield all([
+    watchBookFetchRequest()
+  ]);
 }

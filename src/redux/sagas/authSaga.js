@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, all } from 'redux-saga/effects';
 import axios from "axios";
 import * as types from '../constants/actionTypes';
 import utils from '../../utils';
@@ -49,4 +49,13 @@ function * logout (action) {
 
 export function* watchLogoutRequest() {
   yield takeLatest(types.LOGOUT_REQUEST, logout)
+}
+
+
+export default function* authSaga() {
+  yield all([
+    watchAuthRequest(),
+    watchIsLoggedInRequest(),
+    watchLogoutRequest()
+  ]);
 }
